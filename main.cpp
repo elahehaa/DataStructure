@@ -6,115 +6,91 @@
 
 /* 
  * File:   main.cpp
- * Author: zzafari
+ * Author: Elaheh Aghaarabi
  *
- * Created on November 13, 2019, 7:10 PM
+ * Created on November 20, 2019, 7:07 PM
  */
 
 #include <iostream>
-
+#include <string>
 using namespace std;
 
-class RationalNumber
+
+struct Node
 {
-public:
-    
-    int num ; 
-    int denom;
-    
-    RationalNumber (int a , int b);
-    RationalNumber (int a);
-    RationalNumber();
-            
-    RationalNumber add(const RationalNumber& a);
-    RationalNumber subtract(const RationalNumber& a);
-    RationalNumber multiply(const RationalNumber& a);
-    RationalNumber divide(const RationalNumber& a);
-    
-    void printNumber();
-    
+ string name;
+ Node *link;
 };
+typedef Node* NodePtr;
 
-
-
-/*
- * 
- */
-int main() {
- RationalNumber rn1(1,6);
- RationalNumber rn2(2);
- RationalNumber r;
+void showOutput(NodePtr listPtr);
+int main()
+{
+ NodePtr listPtr, tempPtr , lastPtr;
+ listPtr = new Node;
+ listPtr->name = "Emily";
+ tempPtr = new Node;
+ tempPtr->name = "James";
+ listPtr->link = tempPtr;
+ tempPtr->link = new Node;
+ tempPtr = tempPtr->link;
+ tempPtr->name = "Joules";
+ tempPtr->link = NULL;
  
- cout << "First number: ";
- rn1.printNumber();
- cout << "\nSecond number: ";
- rn2.printNumber();
- cout << "\nAddition: " ;
- r = rn1.add(rn2);
- r.printNumber();
- cout << "\nSubtraction: " ;
- r = rn1.subtract(rn2);
- r.printNumber();
- cout << "\nMultiplication: " ;
- r = rn1.multiply(rn2);
- r.printNumber();
- cout << "\nDivision: " ;
- r = rn1.divide(rn2);
- r.printNumber();
- return 0;
+ 
+ showOutput(listPtr);
+ cout << endl;
+ lastPtr = new Node;
+ tempPtr = listPtr;
+ while (tempPtr!=NULL)
+ {
+     lastPtr = tempPtr;
+     tempPtr = tempPtr ->link;
+ }
+ 
+ tempPtr = new Node;
+ tempPtr->name = "Joshua";
+ tempPtr->link = NULL;
+ lastPtr->link=tempPtr;
+ showOutput(listPtr);
+ cout << endl;
+ tempPtr = listPtr;
+ while (tempPtr!=NULL)
+ {
+     if (tempPtr ->name == "Joules")
+     {
+         lastPtr->link = tempPtr ->link;
+         break;
+     }
+     else
+     {
+         lastPtr = tempPtr;
+         tempPtr = tempPtr ->link;
+     }
+ }
+ showOutput(listPtr);
+ cout << endl;
+ 
+ tempPtr = listPtr;
+ while (tempPtr != NULL)
+ {
+     NodePtr nodeToDelete =tempPtr;
+     tempPtr = tempPtr->link;
+     delete nodeToDelete;
+ }
+ 
+ 
+return 0;
 }
 
-void RationalNumber::printNumber()
-
-{  
-    cout << num << "/" << denom << endl;
-}
-
-RationalNumber::RationalNumber (int a , int b)
+void showOutput(NodePtr listPtr)
 {
-   num =  a;
-   denom = b;
-}
-RationalNumber::RationalNumber (int a)
-    {
-      num = a;
-      denom = 1;
-    }
-RationalNumber::RationalNumber ()
-    {
-      
-    }
-
-
-RationalNumber RationalNumber::add(const RationalNumber& a)
+  NodePtr tempPtr = listPtr;
+while (tempPtr != NULL)  
 {
-    RationalNumber r;
-   r.num = (a.num * denom) + (a.denom * num);
-   r.denom =(a.denom * denom);
-   
-   return r;
+    cout << tempPtr->name << "  ";
+    tempPtr = tempPtr->link;
 }
-RationalNumber RationalNumber::subtract(const RationalNumber& a)
-{
-    RationalNumber r;
-  r.num = (a.denom * num) - (a.num * denom) ;
-  r.denom =(a.denom * denom);  
-   
-   return r;
-}
-RationalNumber RationalNumber::multiply(const RationalNumber& a)
-{
-    RationalNumber r;
-  r.num = a.num * num ;
-  r.denom = a.denom * denom; 
-  return r;
-}
-RationalNumber RationalNumber::divide(const RationalNumber& a)
-{
-    RationalNumber r;
-  r.denom = a.num * denom ;
-  r.num = a.denom * num; 
-  return r;
-}
-
     
+}
+
