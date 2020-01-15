@@ -8,89 +8,81 @@
  * File:   main.cpp
  * Author: Elaheh Aghaarabi
  *
- * Created on November 20, 2019, 7:07 PM
+ * Created on November 6, 2019, 7:23 PM
  */
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
-
-struct Node
+struct Date 
 {
- string name;
- Node *link;
+int day;
+int month; 		
+int year;			
 };
-typedef Node* NodePtr;
 
-void showOutput(NodePtr listPtr);
-int main()
+struct Person 
 {
- NodePtr listPtr, tempPtr , lastPtr;
- listPtr = new Node;
- listPtr->name = "Emily";
- tempPtr = new Node;
- tempPtr->name = "James";
- listPtr->link = tempPtr;
- tempPtr->link = new Node;
- tempPtr = tempPtr->link;
- tempPtr->name = "Joules";
- tempPtr->link = NULL;
+string firstName;
+string lastName; 		
+Date   bd;
+int    age;
+};
+
+int calculateAge(Date today,Person& p); 
+void printInfo(Person p); 
+
+/*
+ * 
+ */
+int main() {
  
- 
- showOutput(listPtr);
- cout << endl;
- lastPtr = new Node;
- tempPtr = listPtr;
- while (tempPtr!=NULL)
- {
-     lastPtr = tempPtr;
-     tempPtr = tempPtr ->link;
- }
- 
- tempPtr = new Node;
- tempPtr->name = "Joshua";
- tempPtr->link = NULL;
- lastPtr->link=tempPtr;
- showOutput(listPtr);
- cout << endl;
- tempPtr = listPtr;
- while (tempPtr!=NULL)
- {
-     if (tempPtr ->name == "Joules")
-     {
-         lastPtr->link = tempPtr ->link;
-         break;
-     }
-     else
-     {
-         lastPtr = tempPtr;
-         tempPtr = tempPtr ->link;
-     }
- }
- showOutput(listPtr);
- cout << endl;
- 
- tempPtr = listPtr;
- while (tempPtr != NULL)
- {
-     NodePtr nodeToDelete =tempPtr;
-     tempPtr = tempPtr->link;
-     delete nodeToDelete;
- }
- 
- 
-return 0;
+    Date today;
+
+today.month = 11;
+today.day=11;
+today.year =2019;
+
+Person p;
+
+cout << "First name: ";
+cin>> p.firstName;
+cout << "Last name: ";
+cin>> p.lastName;
+cout << "Birth year: ";
+cin >> p.bd.year;
+cout << "Birth month: ";
+cin >> p.bd.month;
+cout << "Birth day: ";
+cin >> p.bd.day;
+
+   p.age=calculateAge(today,p);
+   printInfo(p);
+    
+    return 0;
 }
 
-void showOutput(NodePtr listPtr)
+int calculateAge(Date today,Person& p)
 {
-  NodePtr tempPtr = listPtr;
-while (tempPtr != NULL)  
-{
-    cout << tempPtr->name << "  ";
-    tempPtr = tempPtr->link;
+today.month = 11;
+today.day=11;
+today.year =2019;
+  if (today.month > p.bd.month) 
+    p.age = today.year-p.bd.year ;
+    else if (today.month < p.bd.month)
+    p.age = today.year-p.bd.year-1 ; 
+    else if ((today.month == p.bd.month) & (today.day > p.bd.day))
+    p.age = today.year-p.bd.year ;   
+    else if ((today.month == p.bd.month) & (today.day < p.bd.day))
+    p.age = today.year-p.bd.year-1 ;
+    return p.age;
 }
+
+void printInfo(Person p)
+{
+    cout << "Name: " << p.firstName << " " << p.lastName << endl;
+    cout << "Age: "  << p.age << endl;
     
 }
-
