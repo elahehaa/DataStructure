@@ -8,81 +8,48 @@
  * File:   main.cpp
  * Author: Elaheh Aghaarabi
  *
- * Created on November 6, 2019, 7:23 PM
+ * Created on October 30, 2019, 7:08 PM
  */
 
 #include <iostream>
-#include <string>
+#include <cstring>
+
 
 using namespace std;
-
-struct Date 
-{
-int day;
-int month; 		
-int year;			
-};
-
-struct Person 
-{
-string firstName;
-string lastName; 		
-Date   bd;
-int    age;
-};
-
-int calculateAge(Date today,Person& p); 
-void printInfo(Person p); 
+bool isPalindrome(char* cstr);
 
 /*
  * 
  */
 int main() {
- 
-    Date today;
-
-today.month = 11;
-today.day=11;
-today.year =2019;
-
-Person p;
-
-cout << "First name: ";
-cin>> p.firstName;
-cout << "Last name: ";
-cin>> p.lastName;
-cout << "Birth year: ";
-cin >> p.bd.year;
-cout << "Birth month: ";
-cin >> p.bd.month;
-cout << "Birth day: ";
-cin >> p.bd.day;
-
-   p.age=calculateAge(today,p);
-   printInfo(p);
     
+char s1[50] = "neveroddoreven";
+char s2[50] = "notapalindrome";
+cout << isPalindrome(s1) << endl; // true
+cout << isPalindrome(s2) << endl; // false
+
     return 0;
 }
-
-int calculateAge(Date today,Person& p)
+bool isPalindrome(char* cstr)
 {
-today.month = 11;
-today.day=11;
-today.year =2019;
-  if (today.month > p.bd.month) 
-    p.age = today.year-p.bd.year ;
-    else if (today.month < p.bd.month)
-    p.age = today.year-p.bd.year-1 ; 
-    else if ((today.month == p.bd.month) & (today.day > p.bd.day))
-    p.age = today.year-p.bd.year ;   
-    else if ((today.month == p.bd.month) & (today.day < p.bd.day))
-    p.age = today.year-p.bd.year-1 ;
-    return p.age;
-}
+char* front = cstr ;
+char* back = cstr + strlen(cstr)-1;
 
-void printInfo(Person p)
+
+while (front < back)
 {
-    cout << "Name: " << p.firstName << " " << p.lastName << endl;
-    cout << "Age: "  << p.age << endl;
-    
+// Complete code here
+  
+  
+       if (*front == *back) 
+       { 
+           *front++;
+           *back--;
+       } 
+        
+       else return false; 
+           
+              
 }
+return true;
+} 
